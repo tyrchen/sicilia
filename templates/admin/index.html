@@ -1,0 +1,110 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />
+<style>
+#toureet-notification{ background-color: #eee; margin:3px; padding:3px;}
+#toureet-notification h2{ text-align: center; padding-bottom: 2px; margin-bottom:2px; border-bottom: 1px dashed #5187b9;}
+#toureet-notification p { font:14px bold;color:red;}
+</style>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}
+<div id="toureet-notification"><h2>通告</h2><p> 
+数据库迁移完毕。大家可以更新这两天的工作了。请大家检查自己负责的国家是否有问题，并及时与我们联系。谢谢大家的合作！--途我睿
+<p>注意事项</p>
+<ol>
+  <li>用户只有修改的权限，没有添加的权限。这样做是为了避免一些不必要的重复。我们会帮大家把要翻译的数据都抓取下来。如果你发现有城市/景点不在数据库中，请与tchen@toureet.com联系。</li>
+  <li>如果某个景点的英文描述信息很短并最后附有省略号，请打开该景点的来源指向的url进行翻译</li>
+</ol>
+  <p>目前任务分配情况：</p>
+  <ul>
+    <li>英国: 爱丁堡的毛毛</li>
+    <li>希腊，比利时，丹麦: xiaoshixiao</li>
+    <li>西班牙: liuxing</li>
+    <li>意大利，法国: myfei</li>
+    <li>德国: winter</li>
+    <li>荷兰: tina</li>
+    <li>瑞士: emma</li>
+    <li>审校: hanhan</li>
+  </ul>
+  <p>万分感谢以上朋友的大力支持！我们的成功源自你们的努力！</p>
+</p></div> 
+{% endblock %}
+
+{% block content %}
+
+<div id="content-main">
+
+{% if app_list %}
+    {% for app in app_list %}
+        <div class="module">
+        <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
+        <caption><a href="{{ app.app_url }}" class="section">{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}</a></caption>
+        {% for model in app.models %}
+            <tr>
+            {% if model.perms.change %}
+                <th scope="row"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+            {% else %}
+                <th scope="row">{{ model.name }}</th>
+            {% endif %}
+
+            {% if model.perms.add %}
+                <td><a href="{{ model.admin_url }}add/" class="addlink">{% trans 'Add' %}</a></td>
+            {% else %}
+                <td>&nbsp;</td>
+            {% endif %}
+
+            {% if model.perms.change %}
+                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+            {% else %}
+                <td>&nbsp;</td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>{% trans "You don't have permission to edit anything." %}</p>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent Actions' %}</h2>
+        <h3>{% trans 'My Actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% trans 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br/>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}

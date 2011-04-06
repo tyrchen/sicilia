@@ -1,0 +1,13 @@
+build/*
+*.pyc
+*.bak
+logs/*
+tmp/*
+*~
+.svn
+Thumbs.db
+templates/common/vendors/*
+.DS_Store
+
+default
+*-min.js

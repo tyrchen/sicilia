@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />
+<style>
+#toureet-notification{ background-color: #eee; margin:10px; padding:10px;}
+#toureet-notification h2{ text-align: center; padding-bottom: 5px; margin-bottom:5px; border-bottom: 1px dashed #5187b9;}
+#toureet-notification p { font:14px bold;color:red;}
+</style>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}
+<div id="toureet-notification"><h2>错误</h2><p> 
+<p>出错了，找不到该记录或您无权访问该记录。</p> 
+</p></div> 
+{% endblock %}
