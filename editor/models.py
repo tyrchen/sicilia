@@ -57,10 +57,20 @@ class Country(Base):
     return count
   total_city_display.short_description = u'城市数量'
 
+  def translated_city_display(self):
+    count = City.objects.exclude(description_zh = '').filter(country = self).count()
+    return count
+  translated_city_display.short_description = u'已翻译城市'
+
   def total_place_display(self):
     count = Place.objects.exclude(description_en = '').filter(country = self).count()
     return count
   total_place_display.short_description = u'景点数量'
+
+  def translated_place_display(self):
+    count = Place.objects.exclude(description_zh = '').filter(country = self).count()
+    return count
+  translated_place_display.short_description = u'已翻译景点'
 
 class Administration(Base):
   parent = models.ForeignKey(Continent, verbose_name = u'所属国家', null = True)
@@ -74,6 +84,10 @@ class Administration(Base):
     return count
   total_city_display.short_description = u'城市数量'
 
+  def translated_city_display(self):
+    count = City.objects.exclude(description_zh = '').filter(parent = self).count()
+    return count
+  translated_city_display.short_description = u'已翻译城市'
 
 class City(Base):
   parent = models.ForeignKey(Administration, verbose_name = u'所属行政区域')
@@ -86,6 +100,11 @@ class City(Base):
     count = Place.objects.exclude(description_en = '').filter(parent = self).count()
     return count
   total_place_display.short_description = u'景点数量'
+
+  def translated_place_display(self):
+    count = Place.objects.exclude(description_zh = '').filter(parent = self).count()
+    return count
+  translated_place_display.short_description = u'已翻译景点'
 
 class Place(Base):
   parent = models.ForeignKey(City, verbose_name = u'所属城市')

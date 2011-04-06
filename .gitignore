@@ -11,3 +11,5 @@ templates/common/vendors/*
 
 default
 *-min.js
+toureet_editor
+bak

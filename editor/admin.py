@@ -9,7 +9,7 @@ from django.db.models.query import RawQuerySet
 class BaseAdmin(admin.ModelAdmin):
   exclude = ('added_on', 'last_modified_by', 'last_modified_on', 'rank', 'slug')
   search_fields = ['name_en', 'name_zh']
-  list_display = ('name_en', 'name_zh', 'added_by_display', 'added_on_display', 'last_modified_on_display',)
+  list_display = ('name_en', 'name_zh', 'added_by_display', 'last_modified_on_display',)
   readonly_fields = ('description_en', 'crawl_url')
 
   def change_view(self, request, object_id, extra_context = None):
@@ -45,7 +45,7 @@ class BaseAdmin(admin.ModelAdmin):
 
 class CountryAdmin(BaseAdmin):
   readonly_fields = BaseAdmin.readonly_fields + ('parent',)
-  list_display = BaseAdmin.list_display + ('total_city_display', 'total_place_display')
+  list_display = BaseAdmin.list_display + ('total_city_display', 'total_place_display', 'translated_city_display', 'translated_place_display')
   list_filter = ('added_by', 'parent')
 
 
@@ -54,14 +54,14 @@ class ContinentAdmin(BaseAdmin):
 
 class AdministrationAdmin(BaseAdmin):
   readonly_fields = BaseAdmin.readonly_fields + ('parent', 'country',)
-  list_display = BaseAdmin.list_display + ('total_city_display',)
+  list_display = BaseAdmin.list_display + ('total_city_display', 'translated_city_display')
   list_filter = ('added_by', 'country')
 
 
 
 class CityAdmin(BaseAdmin):
   readonly_fields = BaseAdmin.readonly_fields + ('parent', 'country',)
-  list_display = BaseAdmin.list_display + ('total_place_display',)
+  list_display = BaseAdmin.list_display + ('total_place_display', 'translated_place_display')
   list_filter = ('added_by', 'country')
 
 
