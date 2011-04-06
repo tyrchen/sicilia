@@ -1,4 +1,3 @@
-build/*
 *.pyc
 *.bak
 logs/*
@@ -8,8 +7,6 @@ tmp/*
 Thumbs.db
 templates/common/vendors/*
 .DS_Store
-
-default
 *-min.js
 toureet_editor
-bak
+bak/*
