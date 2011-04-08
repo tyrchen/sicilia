@@ -72,6 +72,16 @@ class Country(Base):
     return count
   translated_place_display.short_description = u'已翻译景点'
 
+  def real_city_display(self):
+    count = City.objects.filter(country = self).count()
+    return count
+  real_city_display.short_description = u'其他(1)'
+
+  def real_place_display(self):
+    count = Place.objects.filter(country = self).count()
+    return count
+  real_place_display.short_description = u'其他(2)'
+
 class Administration(Base):
   parent = models.ForeignKey(Continent, verbose_name = u'所属国家', null = True)
   country = models.ForeignKey(Country, verbose_name = u'所属国家')
