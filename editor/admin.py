@@ -45,7 +45,7 @@ class BaseAdmin(admin.ModelAdmin):
 
 class CountryAdmin(BaseAdmin):
   readonly_fields = BaseAdmin.readonly_fields + ('parent',)
-  list_display = BaseAdmin.list_display + ('total_city_display', 'total_place_display', 'translated_city_display', 'translated_place_display')
+  list_display = BaseAdmin.list_display + ('total_city_display', 'translated_city_display')
   list_filter = ('added_by', 'parent')
 
 

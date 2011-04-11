@@ -53,22 +53,22 @@ class Country(Base):
     verbose_name_plural = u'国家'
 
   def total_city_display(self):
-    count = City.objects.exclude(description_en = '').filter(country = self).count()
+    count = City.objects.filter(country = self).exclude(description_en = '').count()
     return count
   total_city_display.short_description = u'城市数量'
 
   def translated_city_display(self):
-    count = City.objects.exclude(description_zh = '').filter(country = self).count()
+    count = City.objects.filter(country = self).exclude(description_zh = '').count()
     return count
   translated_city_display.short_description = u'已翻译城市'
 
   def total_place_display(self):
-    count = Place.objects.exclude(description_en = '').filter(country = self).count()
+    count = Place.objects.filter(country = self).exclude(description_en = '').count()
     return count
   total_place_display.short_description = u'景点数量'
 
   def translated_place_display(self):
-    count = Place.objects.exclude(description_zh = '').filter(country = self).count()
+    count = Place.objects.filter(country = self).exclude(description_zh = '').count()
     return count
   translated_place_display.short_description = u'已翻译景点'
 
@@ -90,12 +90,12 @@ class Administration(Base):
     verbose_name_plural = u'地区'
 
   def total_city_display(self):
-    count = City.objects.exclude(description_en = '').filter(parent = self).count()
+    count = City.objects.filter(parent = self).exclude(description_en = '').count()
     return count
   total_city_display.short_description = u'城市数量'
 
   def translated_city_display(self):
-    count = City.objects.exclude(description_zh = '').filter(parent = self).count()
+    count = City.objects.filter(parent = self).exclude(description_zh = '').count()
     return count
   translated_city_display.short_description = u'已翻译城市'
 
@@ -107,12 +107,12 @@ class City(Base):
     verbose_name_plural = u'城市'
 
   def total_place_display(self):
-    count = Place.objects.exclude(description_en = '').filter(parent = self).count()
+    count = Place.objects.filter(parent = self).exclude(description_en = '').count()
     return count
   total_place_display.short_description = u'景点数量'
 
   def translated_place_display(self):
-    count = Place.objects.exclude(description_zh = '').filter(parent = self).count()
+    count = Place.objects.filter(parent = self).exclude(description_zh = '').count()
     return count
   translated_place_display.short_description = u'已翻译景点'
 
