@@ -23,4 +23,4 @@ class Command(BaseCommand):
 
 
   def handle(self, **kwargs):
-    self.delete_continent('africa')
+    self.delete_continent('asia')
