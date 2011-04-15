@@ -35,6 +35,7 @@ class Base(models.Model):
   class Meta:
     abstract = True
 
+
   def __unicode__(self):
     if self.name_zh:
       return self.name_zh
@@ -51,6 +52,7 @@ class Country(Base):
   class Meta:
     verbose_name = u'国家'
     verbose_name_plural = u'国家'
+    ordering = ['rank']
 
   def total_city_display(self):
     count = City.objects.filter(country = self).exclude(description_en = '').count()
@@ -105,6 +107,7 @@ class City(Base):
   class Meta:
     verbose_name = u'城市'
     verbose_name_plural = u'城市'
+    ordering = ['rank']
 
   def total_place_display(self):
     count = Place.objects.filter(parent = self).exclude(description_en = '').count()
@@ -129,3 +132,4 @@ class Place(Base):
   class Meta:
     verbose_name = u'景点'
     verbose_name_plural = u'景点'
+    ordering = ['rank', 'parent__rank']
