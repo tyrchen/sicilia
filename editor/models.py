@@ -18,6 +18,32 @@ class Base(models.Model):
   added_on = models.DateTimeField(default = datetime.now())
   last_modified_by = models.ForeignKey(User, null = True, blank = True, related_name = "%(app_label)s_%(class)s_last_modified_by")
   last_modified_on = models.DateTimeField(default = datetime.now())
+  paid = models.IntegerField(default = 0, db_index = True)
+
+  @classmethod
+  def mark_paid(cls):
+    countries = Country.objects.exclude(description_zh = '')
+    regions = Administration.objects.exclude(description_zh = '')
+    cities = City.objects.exclude(description_zh = '')
+    places = Place.objects.exclude(description_zh = '')
+
+    for item in countries:
+      item.paid = 1
+      item.save()
+
+    for item in regions:
+      item.paid = 1
+      item.save()
+
+    for item in cities:
+      item.paid = 1
+      item.save()
+
+    for item in places:
+      item.paid = 1
+      item.save()
+
+
 
   def added_by_display(self):
     full_name = u'%s%s' % (self.added_by.last_name, self.added_by.first_name)
