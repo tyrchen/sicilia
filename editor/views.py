@@ -18,10 +18,16 @@ def translation_summary(request):
       cities = City.objects.filter(added_by = user).filter(paid = 1).count()
       places = Place.objects.filter(added_by = user).filter(paid = 1).count()
       result[user.username] = [countries, regions, cities, places, countries + regions + cities + places]
-
-    variables = RequestContext(request, {
-      'data': result
-    })
-    return render_to_response('translation_summary.html', variables)
+  elif me.is_staff:
+    countries = Country.objects.filter(added_by = me).filter(paid = 1).count()
+    regions = Administration.objects.filter(added_by = me).filter(paid = 1).count()
+    cities = City.objects.filter(added_by = me).filter(paid = 1).count()
+    places = Place.objects.filter(added_by = me).filter(paid = 1).count()
+    result[me.username] = [countries, regions, cities, places, countries + regions + cities + places]
   else:
     raise Http404(_(u'无法找到给定的资源'))
+
+  variables = RequestContext(request, {
+    'data': result
+  })
+  return render_to_response('translation_summary.html', variables)
