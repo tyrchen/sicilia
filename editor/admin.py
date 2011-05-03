@@ -7,14 +7,15 @@ from django.db.models.query import RawQuerySet
 #from editor.filters import CountryFilterSpec
 
 class BaseAdmin(admin.ModelAdmin):
-  exclude = ('added_on', 'last_modified_by', 'last_modified_on', 'rank', 'slug')
+  exclude = ('added_on', 'last_modified_by', 'last_modified_on', 'rank', 'slug', 'paid')
   search_fields = ['name_en', 'name_zh']
   list_display = ('name_en', 'name_zh', 'added_by_display', 'last_modified_on_display',)
-  readonly_fields = ('description_en', 'crawl_url')
+  readonly_fields = ('crawl_url',)
 
   def change_view(self, request, object_id, extra_context = None):
     if not request.user.is_superuser:
       self.exclude += ('added_by',)
+      self.readonly_fields += ('description_en',)
     return super(BaseAdmin, self).change_view(request, object_id = object_id, extra_context = None)
 
   def save_model(self, request, obj, form, change):
@@ -60,14 +61,15 @@ class AdministrationAdmin(BaseAdmin):
 
 
 class CityAdmin(BaseAdmin):
-  readonly_fields = BaseAdmin.readonly_fields + ('parent', 'country',)
+  readonly_fields = BaseAdmin.readonly_fields + ('country',)
+  exclude = BaseAdmin.exclude + ('parent',)
   list_display = BaseAdmin.list_display
   list_filter = ('added_by', 'country')
 
 
 class PlaceAdmin(BaseAdmin):
-  exclude = BaseAdmin.exclude + ('avg_review',)
-  readonly_fields = BaseAdmin.readonly_fields + ('parent', 'country', 'categories', 'phone', 'website', 'open_hours', 'address')
+  exclude = BaseAdmin.exclude + ('avg_review', 'categories', 'phone', 'website', 'open_hours', 'address',)
+  readonly_fields = BaseAdmin.readonly_fields + ('parent', 'country',)
   list_filter = ('added_by', 'country')
 
 
