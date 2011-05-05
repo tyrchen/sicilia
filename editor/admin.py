@@ -7,14 +7,14 @@ from django.db.models.query import RawQuerySet
 #from editor.filters import CountryFilterSpec
 
 class BaseAdmin(admin.ModelAdmin):
-  exclude = ('added_on', 'last_modified_by', 'last_modified_on', 'rank', 'slug', 'paid')
+  exclude = ('added_on', 'last_modified_by', 'last_modified_on', 'slug', 'paid')
   search_fields = ['name_en', 'name_zh']
   list_display = ('name_en', 'name_zh', 'added_by_display', 'last_modified_on_display',)
   readonly_fields = ('crawl_url',)
 
   def change_view(self, request, object_id, extra_context = None):
     if not request.user.is_superuser:
-      self.exclude += ('added_by',)
+      self.exclude += ('added_by', 'rank',)
     if not request.user.is_superuser and not request.user.username == 'alexsu':
       self.readonly_fields += ('description_en',)
     return super(BaseAdmin, self).change_view(request, object_id = object_id, extra_context = None)

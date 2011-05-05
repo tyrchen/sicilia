@@ -10,7 +10,7 @@ class Base(models.Model):
   name_zh = models.CharField(u'中文名称', max_length = 50)
   slug = models.CharField(u'唯一标识', max_length = 200, unique = True, null = True)
   crawl_url = models.URLField(u'来源', null = True)
-  rank = models.IntegerField(default = 0)
+  rank = models.IntegerField(default = 0, db_index = True)
   description_en = models.TextField(u'英文描述')
   description_zh = models.TextField(u'中文描述')
 
@@ -158,4 +158,4 @@ class Place(Base):
   class Meta:
     verbose_name = u'景点'
     verbose_name_plural = u'景点'
-    ordering = ['parent__rank', 'rank']
+    ordering = ['rank']
