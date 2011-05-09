@@ -7,9 +7,9 @@
   </head>
   <body>
     <table>
-      <tr><td>Name</td><td>Countries</td><td>Regions</td><td>Cities</td><td>Places</td><td>Total</td></tr>
+      <tr><td>Name</td><td>Countries</td><td>Regions</td><td>Cities</td><td>Places</td><td>Total</td><td>Full Payment</td><td>Half Payment</td></tr>
       {% for key,value in data.items %}
-        <tr><td>{{key}}</td><td>{{value.0}}</td><td>{{value.1}}</td><td>{{value.2}}</td><td>{{value.3}}</td><td>{{value.4}}</td></tr>
+        <tr><td>{{key}}</td><td>{{value.0}}</td><td>{{value.1}}</td><td>{{value.2}}</td><td>{{value.3}}</td><td>{{value.4}}</td><td>{{value.5}}</td><td>{{value.6}}</td></tr>
       {% endfor %}
     </table>
   </body>
