@@ -43,12 +43,12 @@ class BaseAdmin(admin.ModelAdmin):
 
     if qs.model in [Continent, Country]:
       return qs.filter(added_by = request.user)
-    if qs.model in [City]:
-      return qs.filter(country__added_by = request.user).exclude(description_en = '')
-    elif qs.model in [Place]:
-      return qs.filter(country__added_by = request.user).filter(parent__rank__gte = 20).exclude(description_en = '')
-    else:
-      return qs.filter(country__added_by = request.user).exclude(description_en = '')
+#    if qs.model in [City]:
+#      return qs.filter(country__added_by = request.user).exclude(description_en = '')
+#    elif qs.model in [Place]:
+#      return qs.filter(country__added_by = request.user).filter(parent__rank__gte = 20).exclude(description_en = '')
+#    else:
+    return qs.filter(country__added_by = request.user).exclude(description_en = '')
 
 class CountryAdmin(BaseAdmin):
   readonly_fields = BaseAdmin.readonly_fields + ('parent',)
