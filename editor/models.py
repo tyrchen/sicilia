@@ -158,4 +158,4 @@ class Place(Base):
   class Meta:
     verbose_name = u'景点'
     verbose_name_plural = u'景点'
-    ordering = ['parent__rank', 'rank']
+    ordering = ['rank']
