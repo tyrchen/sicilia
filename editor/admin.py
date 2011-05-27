@@ -15,8 +15,8 @@ class BaseAdmin(admin.ModelAdmin):
   def change_view(self, request, object_id, extra_context = None):
     if not request.user.is_superuser:
       self.exclude += ('added_by', 'rank',)
-    if not request.user.is_superuser and not request.user.username in ['alexsu', 'xiaoshi', 'emilie', 'lube']:
-      self.readonly_fields += ('description_en',)
+#    if not request.user.is_superuser and not request.user.username in ['alexsu', 'xiaoshi', 'emilie', 'lube']:
+#      self.readonly_fields += ('description_en',)
     return super(BaseAdmin, self).change_view(request, object_id = object_id, extra_context = None)
 
   def save_model(self, request, obj, form, change):
