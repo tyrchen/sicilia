@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <style>
+      table {border:1px solid gray;margin:0px;padding:0px;}
+      td {border:1px solid gray;margin:5px;padding:5px;}
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr><td>Name</td><td>Countries</td><td>Cities</td><td>Places</td><td>Total</td><td>Full Payment</td><td>Half Payment</td></tr>
+      {% for key,value in data.items %}
+        <tr><td>{{key}}</td><td>{{value.0}}</td><td>{{value.1}}</td><td>{{value.2}}</td><td>{{value.3}}</td><td>{{value.4}}</td><td>{{value.5}}</td></tr>
+      {% endfor %}
+      <tr><td>总计</td><td>{{total.0}}</td><td>{{total.1}}</td><td>{{total.2}}</td><td>{{total.3}}</td><td>{{total.4}}</td><td>{{total.5}}</td></tr>
+    </table>
+  </body>
+</html>
