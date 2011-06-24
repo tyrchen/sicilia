@@ -53,7 +53,7 @@ def translation_country_summary(request):
       total = _get_country_translation(country, 0)
       all = total[3]
       if all:
-        full = _get_country_translation(country, 150)[3]
+        full = _get_country_translation(country, 75)[3]
         total.append(full)
         total.append(all - full)
         result["%s (%s)" % (country.name_en, country.added_by.get_full_name())] = total
