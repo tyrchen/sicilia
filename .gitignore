@@ -10,3 +10,4 @@ templates/common/vendors/*
 *-min.js
 toureet_editor
 bak/*
+.idea

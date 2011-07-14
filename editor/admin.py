@@ -38,8 +38,8 @@ class BaseAdmin(admin.ModelAdmin):
     qs = super(BaseAdmin, self).queryset(request)
 
     # If super-user, show all comments
-    if request.user.is_superuser:
-      return qs.exclude(description_en = '')
+    if request.user.is_superuser or request.user.username == 'myfei':
+      return qs
 
     if qs.model in [Continent, Country]:
       return qs.filter(added_by = request.user)
